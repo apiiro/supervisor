@@ -131,10 +131,11 @@ class POutputDispatcher(PDispatcher):
             self.normallog = config.options.getLogger()
 
         if logfile:
+            formatter = f'%(asctime)s: [{self.process.config.name}] %(message)s'
             loggers.handle_file(
                 self.normallog,
                 filename=logfile,
-                fmt='%(message)s',
+                fmt=formatter,
                 rotating=not not maxbytes, # optimization
                 maxbytes=maxbytes,
                 backups=backups
