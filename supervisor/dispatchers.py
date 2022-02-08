@@ -131,7 +131,7 @@ class POutputDispatcher(PDispatcher):
             self.normallog = config.options.getLogger()
 
         if logfile:
-            formatter = f'%[{self.process.config.name}] %(message)s'
+            formatter = f'[{self.process.config.name}] %(message)s'
             loggers.handle_file(
                 self.normallog,
                 filename=logfile,
