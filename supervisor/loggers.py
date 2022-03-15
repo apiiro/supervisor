@@ -185,6 +185,13 @@ class FileHandler(Handler):
             if why.args[0] != errno.ENOENT:
                 raise
 
+    def emit(self, record):
+        messages = record.msg.split('\n')
+        for message in messages:
+            record.msg = message
+            super(Handler, self).emit(record)
+
+
 class RotatingFileHandler(FileHandler):
     def __init__(self, filename, mode='ab', maxBytes=512*1024*1024,
                  backupCount=10):
