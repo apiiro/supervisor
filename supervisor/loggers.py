@@ -149,6 +149,9 @@ class BoundIO:
     def clear(self):
         self.buf = b''
 
+LINE_BREAK = '\n'
+LINE_BREAK_B = b'\n'
+
 class FileHandler(Handler):
     """File handler which supports reopening of logs.
     """
@@ -186,9 +189,11 @@ class FileHandler(Handler):
                 raise
 
     def emit(self, record):
-        messages = record.msg.split('\n'.encode() if isinstance(record.msg, bytes) else '\n')
+        is_bytes = isinstance(record.msg, bytes)
+        line_break = LINE_BREAK_B if is_bytes else LINE_BREAK
+        messages = record.msg.split(line_break)
         for message in messages:
-            record.msg = message
+            record.msg = message + line_break
             Handler.emit(self, record)
 
 
