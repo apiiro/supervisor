@@ -186,7 +186,7 @@ class FileHandler(Handler):
                 raise
 
     def emit(self, record):
-        messages = record.msg.split('\n'.encode())
+        messages = record.msg.split('\n'.encode() if isinstance(record.msg, bytes) else '\n')
         for message in messages:
             record.msg = message
             Handler.emit(self, record)
