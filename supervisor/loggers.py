@@ -189,7 +189,7 @@ class FileHandler(Handler):
         messages = record.msg.split('\n')
         for message in messages:
             record.msg = message
-            super(Handler, self).emit(record)
+            Handler.emit(self, record)
 
 
 class RotatingFileHandler(FileHandler):
